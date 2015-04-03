@@ -20,7 +20,4 @@ Pod::Spec.new do |s|
 
   s.weak_framework = 'WebKit'
 
-  s.dependency 'TUSafariActivity', '1.0.2'
-  s.dependency 'ARChromeActivity', '1.0.2'
-
 end
