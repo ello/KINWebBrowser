@@ -410,6 +410,7 @@ static void *KINContext = &KINContext;
     else if(self.uiWebView) {
         URLForActivityItem = self.uiWebView.request.URL;
     }
+    if(URLForActivityItem == nil) { return; }
     dispatch_async(dispatch_get_main_queue(), ^{
         UIActivityViewController *controller = [[UIActivityViewController alloc] initWithActivityItems:@[URLForActivityItem] applicationActivities:@[]];
         if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
