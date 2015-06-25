@@ -98,7 +98,7 @@ static void *KINContext = &KINContext;
         else {
             self.uiWebView = [[UIWebView alloc] init];
         }
-        
+
         self.actionButtonHidden = NO;
         self.showsURLInNavigationBar = NO;
         self.showsPageTitleInNavigationBar = YES;
@@ -258,18 +258,11 @@ static void *KINContext = &KINContext;
 
 - (void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
     NSURLRequest *request = navigationAction.request;
-
-    BOOL *shouldLoad = YES;
+    BOOL shouldLoad = YES;
     if([self.delegate respondsToSelector:@selector(webBrowser:shouldStartLoadWithRequest:)]) {
         shouldLoad = [self.delegate webBrowser:self shouldStartLoadWithRequest:request];
     }
-
-    if (shouldLoad == YES) {
-        decisionHandler(WKNavigationActionPolicyAllow);
-    }
-    else {
-        decisionHandler(WKNavigationActionPolicyCancel);
-    }
+    decisionHandler(shouldLoad == YES ? WKNavigationActionPolicyAllow : WKNavigationActionPolicyCancel);
 }
 
 - (void)webView:(WKWebView *)webView didStartProvisionalNavigation:(WKNavigation *)navigation {
@@ -313,7 +306,6 @@ static void *KINContext = &KINContext;
 #pragma mark - Toolbar State
 
 - (void)updateToolbarState {
-
     BOOL canGoBack = self.wkWebView.canGoBack || self.uiWebView.canGoBack;
     BOOL canGoForward = self.wkWebView.canGoForward || self.uiWebView.canGoForward;
 
