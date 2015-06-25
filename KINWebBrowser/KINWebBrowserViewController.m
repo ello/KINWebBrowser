@@ -371,9 +371,7 @@ static void *KINContext = &KINContext;
 #pragma mark - Done Button Action
 
 - (void)doneButtonPressed:(id)sender {
-    [self.navigationController dismissViewControllerAnimated:YES completion:^{
-        [self loadURLString: @"about:blank"];
-    }];
+    [self.navigationController dismissViewControllerAnimated:YES completion:nil];
 }
 
 
