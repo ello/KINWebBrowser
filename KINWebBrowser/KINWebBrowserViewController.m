@@ -371,6 +371,9 @@ static void *KINContext = &KINContext;
 #pragma mark - Done Button Action
 
 - (void)doneButtonPressed:(id)sender {
+    if([self.delegate respondsToSelector:@selector(willDismissWebBrowser:)]) {
+        [self.delegate willDismissWebBrowser:self];
+    }
     [self.navigationController dismissViewControllerAnimated:YES completion:nil];
 }
 
