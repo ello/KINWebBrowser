@@ -122,6 +122,7 @@ static void *KINContext = &KINContext;
         [self.wkWebView setMultipleTouchEnabled:YES];
         [self.wkWebView setAutoresizesSubviews:YES];
         [self.wkWebView.scrollView setAlwaysBounceVertical:YES];
+        [self.wkWebView setUIDelegate:self];
         [self.view addSubview:self.wkWebView];
         
         [self.wkWebView addObserver:self forKeyPath:NSStringFromSelector(@selector(estimatedProgress)) options:0 context:KINContext];
@@ -252,6 +253,17 @@ static void *KINContext = &KINContext;
             [self.delegate webBrowser:self didFailToLoadURL:self.uiWebView.request.URL error:error];
         }
     }
+}
+
+#pragma mark - WKUIDelegate
+
+- (WKWebView*) webView:(WKWebView*)webView createWebViewWithConfiguration:(WKWebViewConfiguration*) configuration forNavigationAction:(WKNavigationAction*) navigationAction windowFeatures:(WKWindowFeatures*) windowFeatures {
+    if (!navigationAction.targetFrame.isMainFrame) {
+        [webView loadRequest:navigationAction.request];
+        return nil;
+    }
+    return webView;
+
 }
 
 #pragma mark - WKNavigationDelegate
