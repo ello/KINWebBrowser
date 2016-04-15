@@ -122,6 +122,7 @@
 // Loads a URL as NSString to webView
 // Can be called any time after initialization
 - (void)loadURLString:(NSString *)URLString;
+- (void)doneButtonPressed:(id)sender;
 
 @end
 
